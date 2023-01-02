@@ -1,0 +1,19 @@
+<div class="col-sm-6">
+    <h3 class="text-primary">Locations</h3>
+    <div id="mapDiv" class="gmap"></div>
+</div>
+</div>
+<script>
+    var lat = {{ items.businesses.0.coordinates.latitude }};
+    var lon = {{ items.businesses.0.coordinates.longitude }};
+    var map = L.map('mapDiv').setView([lat, lon], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png, {
+        attribution: 'Map data&copy; <a href="https://www.openstreetmap.org/">OpenStreet</a> contributors',
+        maxZoom: 18,
+    }) addTo(map);
+
+    {% for bus in items.businesses %}
+        var marker = L.marker([{{ bus.coordinates.latitude }}]), {{ bus.coordinates.longitude }}.addTo(map);
+        marker.bindPopup("<b> {{bus.name}}"</br><br/>)
+    {% endfor %}
+</script>
